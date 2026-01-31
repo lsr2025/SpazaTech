@@ -150,6 +150,15 @@ const QuickActions = () => (
           </div>
         </Button>
       </Link>
+      <Link to={createPageUrl('Analytics')}>
+        <Button variant="outline" className="w-full border-slate-600 text-white hover:bg-slate-700 justify-start gap-3 h-14">
+          <TrendingUp className="w-5 h-5" />
+          <div className="text-left">
+            <p className="font-semibold">Analytics & Reports</p>
+            <p className="text-xs opacity-80">Advanced insights</p>
+          </div>
+        </Button>
+      </Link>
       <Link to={createPageUrl('MapView')}>
         <Button variant="outline" className="w-full border-slate-600 text-white hover:bg-slate-700 justify-start gap-3 h-14">
           <MapPin className="w-5 h-5" />
