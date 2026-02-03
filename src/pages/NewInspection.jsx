@@ -295,10 +295,56 @@ export default function NewInspection() {
     {
       id: 'inventory',
       title: 'Inventory & Waste',
+      description: 'Expired items, waste disposal, and chemical storage',
       icon: Package,
       color: 'text-amber-400'
     }
   ];
+
+  // Validate current section
+  const validateSection = (sectionId) => {
+    const errors = [];
+    const config = checklistConfig[sectionId];
+    
+    if (config) {
+      config.forEach(item => {
+        const value = formData[item.id];
+        if (item.required && !value) {
+          errors.push(`"${item.label}" requires a response`);
+        }
+        if (item.photoField && value === 'fail' && !formData[item.photoField]) {
+          errors.push(`Photo evidence required for "${item.label}"`);
+        }
+      });
+    }
+
+    // Special validation for cold chain temp
+    if (sectionId === 'coldchain') {
+      const temp = parseFloat(formData.coldchain_fridge_temp);
+      if (isNaN(temp)) {
+        errors.push('Fridge temperature reading is required');
+      }
+    }
+
+    return errors;
+  };
+
+  // Get section completion stats
+  const getSectionStats = (sectionId) => {
+    const config = checklistConfig[sectionId];
+    if (!config) return { completed: 0, total: 0 };
+    
+    let completed = 0;
+    config.forEach(item => {
+      const value = formData[item.id];
+      const photoValue = item.photoField ? formData[item.photoField] : null;
+      if (value && (value !== 'fail' || !item.photoField || photoValue)) {
+        completed++;
+      }
+    });
+    
+    return { completed, total: config.length };
+  };
 
   const updateField = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
