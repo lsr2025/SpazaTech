@@ -23,6 +23,7 @@ const navItems = [
 { name: 'Dashboard', icon: LayoutDashboard, page: 'Dashboard' },
 { name: 'Shops', icon: Store, page: 'Shops' },
 { name: 'Map View', icon: MapPin, page: 'MapView' },
+{ name: 'Home', icon: User, page: 'Home' },
 { name: 'Analytics', icon: BarChart3, page: 'Analytics' }];
 
 
