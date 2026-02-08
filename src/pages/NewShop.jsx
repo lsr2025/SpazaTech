@@ -3,6 +3,8 @@ import { useMutation } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+import { offlineStorage } from '@/components/offline/OfflineStorage';
+import SyncManager from '@/components/offline/SyncManager';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,7 +35,8 @@ import {
   Truck,
   Building,
   ClipboardList,
-  Award
+  Award,
+  WifiOff
 } from 'lucide-react';
 
 const steps = [
@@ -169,6 +172,7 @@ export default function NewShop() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [gpsLoading, setGpsLoading] = useState(false);
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
   
   const [formData, setFormData] = useState({
     // Section 1: Shop & Owner Details
@@ -271,11 +275,36 @@ export default function NewShop() {
   });
 
   const createShop = useMutation({
-    mutationFn: (data) => base44.entities.Shop.create(data),
+    mutationFn: async (data) => {
+      if (isOnline) {
+        return await base44.entities.Shop.create(data);
+      } else {
+        // Save offline
+        const id = await offlineStorage.saveShop(data);
+        return { id, offline: true };
+      }
+    },
     onSuccess: (result) => {
-      navigate(createPageUrl(`ShopDetail?id=${result.id}`));
+      if (result.offline) {
+        navigate(createPageUrl('Shops'));
+      } else {
+        navigate(createPageUrl(`ShopDetail?id=${result.id}`));
+      }
     }
   });
+
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
 
   const captureGPS = () => {
     setGpsLoading(true);
@@ -335,6 +364,8 @@ export default function NewShop() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-4 md:p-6">
+      <SyncManager />
+      
       {/* Header */}
       <div className="mb-4">
         <div className="flex items-center gap-3 mb-3">
@@ -343,10 +374,16 @@ export default function NewShop() {
               <ArrowLeft className="w-5 h-5" />
             </Button>
           </Link>
-          <div>
+          <div className="flex-1">
             <h1 className="text-xl font-bold text-white">Spaza Shop Assessment</h1>
             <p className="text-slate-400 text-sm">Step {currentStep} of {steps.length}</p>
           </div>
+          {!isOnline && (
+            <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30">
+              <WifiOff className="w-3 h-3 mr-1" />
+              Offline
+            </Badge>
+          )}
         </div>
         <Progress value={progress} className="h-2 bg-slate-700" />
       </div>
@@ -1049,7 +1086,7 @@ export default function NewShop() {
                 ) : (
                   <>
                     <CheckCircle2 className="w-4 h-4" />
-                    Submit
+                    {isOnline ? 'Submit' : 'Save Offline'}
                   </>
                 )}
               </Button>

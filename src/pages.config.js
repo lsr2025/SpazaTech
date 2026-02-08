@@ -49,24 +49,24 @@
  */
 import Analytics from './pages/Analytics';
 import Dashboard from './pages/Dashboard';
+import Home from './pages/Home';
 import MapView from './pages/MapView';
 import NewInspection from './pages/NewInspection';
 import NewShop from './pages/NewShop';
 import ShopDetail from './pages/ShopDetail';
 import Shops from './pages/Shops';
-import Home from './pages/Home';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
     "Analytics": Analytics,
     "Dashboard": Dashboard,
+    "Home": Home,
     "MapView": MapView,
     "NewInspection": NewInspection,
     "NewShop": NewShop,
     "ShopDetail": ShopDetail,
     "Shops": Shops,
-    "Home": Home,
 }
 
 export const pagesConfig = {

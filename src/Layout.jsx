@@ -5,6 +5,7 @@ import { base44 } from '@/api/base44Client';
 import { useQuery } from '@tanstack/react-query';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import SyncManager from '@/components/offline/SyncManager';
 import {
   LayoutDashboard,
   Store,
@@ -16,14 +17,14 @@ import {
   ChevronRight,
   ClipboardCheck,
   Plus,
-  BarChart3 } from
-'lucide-react';
+  BarChart3,
+  Home as HomeIcon
+} from 'lucide-react';
 
 const navItems = [
 { name: 'Dashboard', icon: LayoutDashboard, page: 'Dashboard' },
 { name: 'Shops', icon: Store, page: 'Shops' },
 { name: 'Map View', icon: MapPin, page: 'MapView' },
-{ name: 'Home', icon: User, page: 'Home' },
 { name: 'Analytics', icon: BarChart3, page: 'Analytics' }];
 
 
@@ -48,6 +49,8 @@ export default function Layout({ children, currentPageName }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+      <SyncManager />
+      
       {/* Mobile Header */}
       <header className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-sm border-b border-slate-800">
         <div className="bg-slate-200 p-4 flex items-center justify-between">
