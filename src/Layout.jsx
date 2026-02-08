@@ -5,30 +5,30 @@ import { base44 } from '@/api/base44Client';
 import { useQuery } from '@tanstack/react-query';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { 
-  LayoutDashboard, 
-  Store, 
-  MapPin, 
-  Menu, 
+import {
+  LayoutDashboard,
+  Store,
+  MapPin,
+  Menu,
   X,
   LogOut,
   User,
   ChevronRight,
   ClipboardCheck,
   Plus,
-  BarChart3
-} from 'lucide-react';
+  BarChart3 } from
+'lucide-react';
 
 const navItems = [
-  { name: 'Dashboard', icon: LayoutDashboard, page: 'Dashboard' },
-  { name: 'Shops', icon: Store, page: 'Shops' },
-  { name: 'Map View', icon: MapPin, page: 'MapView' },
-  { name: 'Analytics', icon: BarChart3, page: 'Analytics' }
-];
+{ name: 'Dashboard', icon: LayoutDashboard, page: 'Dashboard' },
+{ name: 'Shops', icon: Store, page: 'Shops' },
+{ name: 'Map View', icon: MapPin, page: 'MapView' },
+{ name: 'Analytics', icon: BarChart3, page: 'Analytics' }];
+
 
 export default function Layout({ children, currentPageName }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  
+
   const { data: user } = useQuery({
     queryKey: ['currentUser'],
     queryFn: () => base44.auth.me(),
@@ -49,19 +49,19 @@ export default function Layout({ children, currentPageName }) {
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
       {/* Mobile Header */}
       <header className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-sm border-b border-slate-800">
-        <div className="flex items-center justify-between p-4">
+        <div className="bg-slate-200 p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setSidebarOpen(true)}
-              className="text-white"
-            >
+              className="text-white">
+
               <Menu className="w-6 h-6" />
             </Button>
             <div>
               <h1 className="text-lg font-bold text-white tracking-tight">
-                <span className="text-red-500">Yami</span>Mine
+                <span className="text-blue-900 text-xl">Yami</span>Mine
               </h1>
               <p className="text-[10px] text-slate-400 -mt-0.5">Spaza Compliance</p>
             </div>
@@ -76,12 +76,12 @@ export default function Layout({ children, currentPageName }) {
       </header>
 
       {/* Mobile Sidebar Overlay */}
-      {sidebarOpen && (
-        <div 
-          className="lg:hidden fixed inset-0 bg-black/60 z-50"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
+      {sidebarOpen &&
+      <div
+        className="lg:hidden fixed inset-0 bg-black/60 z-50"
+        onClick={() => setSidebarOpen(false)} />
+
+      }
 
       {/* Sidebar */}
       <aside className={`
@@ -104,8 +104,8 @@ export default function Layout({ children, currentPageName }) {
               variant="ghost"
               size="icon"
               onClick={() => setSidebarOpen(false)}
-              className="lg:hidden text-slate-400"
-            >
+              className="lg:hidden text-slate-400">
+
               <X className="w-5 h-5" />
             </Button>
           </div>
@@ -120,21 +120,21 @@ export default function Layout({ children, currentPageName }) {
               <Link
                 key={item.page}
                 to={createPageUrl(item.page)}
-                onClick={() => setSidebarOpen(false)}
-              >
+                onClick={() => setSidebarOpen(false)}>
+
                 <div className={`
                   flex items-center gap-3 px-4 py-3 rounded-xl transition-all
-                  ${isActive 
-                    ? 'bg-gradient-to-r from-red-600/20 to-transparent text-white border-l-4 border-red-500' 
-                    : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
-                  }
-                `}>
+                  ${isActive ?
+                'bg-gradient-to-r from-red-600/20 to-transparent text-white border-l-4 border-red-500' :
+                'text-slate-400 hover:bg-slate-800/50 hover:text-white'}
+                `
+                }>
                   <Icon className={`w-5 h-5 ${isActive ? 'text-red-400' : ''}`} />
                   <span className="font-medium">{item.name}</span>
                   {isActive && <ChevronRight className="w-4 h-4 ml-auto" />}
                 </div>
-              </Link>
-            );
+              </Link>);
+
           })}
         </nav>
 
@@ -151,8 +151,8 @@ export default function Layout({ children, currentPageName }) {
 
         {/* User Profile */}
         <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-800 bg-slate-950/50">
-          {user ? (
-            <div className="flex items-center gap-3">
+          {user ?
+          <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500 to-cyan-600 flex items-center justify-center">
                 <span className="text-white font-semibold">
                   {user.full_name?.[0] || user.email?.[0] || 'U'}
@@ -165,23 +165,23 @@ export default function Layout({ children, currentPageName }) {
                 </Badge>
               </div>
               <Button
-                variant="ghost"
-                size="icon"
-                onClick={handleLogout}
-                className="text-slate-400 hover:text-white hover:bg-slate-800"
-              >
+              variant="ghost"
+              size="icon"
+              onClick={handleLogout}
+              className="text-slate-400 hover:text-white hover:bg-slate-800">
+
                 <LogOut className="w-4 h-4" />
               </Button>
-            </div>
-          ) : (
-            <div className="animate-pulse flex items-center gap-3">
+            </div> :
+
+          <div className="animate-pulse flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-slate-700" />
               <div className="flex-1 space-y-2">
                 <div className="h-3 w-24 bg-slate-700 rounded" />
                 <div className="h-2 w-16 bg-slate-700 rounded" />
               </div>
             </div>
-          )}
+          }
         </div>
       </aside>
 
@@ -197,6 +197,6 @@ export default function Layout({ children, currentPageName }) {
           50% { opacity: 1; }
         }
       `}</style>
-    </div>
-  );
+    </div>);
+
 }
