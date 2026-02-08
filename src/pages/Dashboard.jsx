@@ -221,29 +221,15 @@ const ComplianceBreakdown = ({ shops }) => {
 };
 
 export default function Dashboard() {
-  const { data: user } = useQuery({
-    queryKey: ['currentUser'],
-    queryFn: () => base44.auth.me()
-  });
-
-  const { data: allShops = [] } = useQuery({
+  const { data: shops = [] } = useQuery({
     queryKey: ['shops'],
     queryFn: () => base44.entities.Shop.list('-created_date', 100)
   });
 
-  const { data: allInspections = [] } = useQuery({
+  const { data: inspections = [] } = useQuery({
     queryKey: ['inspections'],
     queryFn: () => base44.entities.Inspection.list('-created_date', 50)
   });
-
-  // Filter data based on user role
-  const shops = user?.user_role === 'field_agent' 
-    ? allShops.filter(s => s.created_by === user.email)
-    : allShops;
-
-  const inspections = user?.user_role === 'field_agent'
-    ? allInspections.filter(i => i.created_by === user.email)
-    : allInspections;
 
   const totalShops = shops.length;
   const compliantShops = shops.filter(s => s.compliance_status === 'compliant').length;
