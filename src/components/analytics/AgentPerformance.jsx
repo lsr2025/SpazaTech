@@ -115,7 +115,7 @@ const CustomTooltip = ({ active, payload, label }) => {
   return null;
 };
 
-export default function AgentPerformance({ shops, inspections }) {
+export default function AgentPerformance({ shops = [], inspections = [] }) {
   const [timeRange, setTimeRange] = useState('all');
   const [sortBy, setSortBy] = useState('inspections');
 
@@ -123,7 +123,7 @@ export default function AgentPerformance({ shops, inspections }) {
     const agentMap = {};
 
     // Collect inspection data by agent
-    inspections.forEach(insp => {
+    (inspections || []).forEach(insp => {
       const email = insp.inspector_email || insp.created_by;
       if (!email) return;
 
@@ -141,7 +141,7 @@ export default function AgentPerformance({ shops, inspections }) {
     });
 
     // Also track shop profiles by creator
-    shops.forEach(shop => {
+    (shops || []).forEach(shop => {
       const email = shop.created_by;
       if (!email) return;
 
@@ -217,12 +217,12 @@ export default function AgentPerformance({ shops, inspections }) {
   }, [sortedAgents]);
 
   const totalStats = useMemo(() => ({
-    totalInspections: inspections.length,
+    totalInspections: (inspections || []).length,
     avgTeamScore: agentStats.length > 0 
       ? Math.round(agentStats.reduce((sum, a) => sum + a.avgComplianceRate, 0) / agentStats.length)
       : 0,
     totalAgents: agentStats.length,
-    totalShopsProfiled: shops.length
+    totalShopsProfiled: (shops || []).length
   }), [agentStats, inspections, shops]);
 
   return (
