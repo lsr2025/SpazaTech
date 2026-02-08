@@ -54,6 +54,7 @@ import NewInspection from './pages/NewInspection';
 import NewShop from './pages/NewShop';
 import ShopDetail from './pages/ShopDetail';
 import Shops from './pages/Shops';
+import Home from './pages/Home';
 import __Layout from './Layout.jsx';
 
 
@@ -65,6 +66,7 @@ export const PAGES = {
     "NewShop": NewShop,
     "ShopDetail": ShopDetail,
     "Shops": Shops,
+    "Home": Home,
 }
 
 export const pagesConfig = {
