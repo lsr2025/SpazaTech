@@ -55,6 +55,8 @@ import NewInspection from './pages/NewInspection';
 import NewShop from './pages/NewShop';
 import ShopDetail from './pages/ShopDetail';
 import Shops from './pages/Shops';
+import HRDashboard from './pages/HRDashboard';
+import AttendanceTracking from './pages/AttendanceTracking';
 import __Layout from './Layout.jsx';
 
 
@@ -67,6 +69,8 @@ export const PAGES = {
     "NewShop": NewShop,
     "ShopDetail": ShopDetail,
     "Shops": Shops,
+    "HRDashboard": HRDashboard,
+    "AttendanceTracking": AttendanceTracking,
 }
 
 export const pagesConfig = {
