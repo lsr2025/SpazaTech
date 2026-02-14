@@ -18,6 +18,7 @@ import {
   ClipboardCheck,
   Plus,
   BarChart3,
+  Users,
   Home as HomeIcon
 } from 'lucide-react';
 
