@@ -68,6 +68,9 @@ import ShiftManagement from './pages/ShiftManagement';
 import ShopDetail from './pages/ShopDetail';
 import Shops from './pages/Shops';
 import SuperDashboard from './pages/SuperDashboard';
+import TeamManagement from './pages/TeamManagement';
+import TaskAssignment from './pages/TaskAssignment';
+import TaskMonitoring from './pages/TaskMonitoring';
 import __Layout from './Layout.jsx';
 
 
@@ -93,6 +96,9 @@ export const PAGES = {
     "ShopDetail": ShopDetail,
     "Shops": Shops,
     "SuperDashboard": SuperDashboard,
+    "TeamManagement": TeamManagement,
+    "TaskAssignment": TaskAssignment,
+    "TaskMonitoring": TaskMonitoring,
 }
 
 export const pagesConfig = {

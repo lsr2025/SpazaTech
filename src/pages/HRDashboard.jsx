@@ -161,10 +161,16 @@ export default function HRDashboard() {
             <p className="text-slate-400 mt-1">Field Agent Performance & Development</p>
           </div>
           <div className="flex items-center gap-3 flex-wrap">
-            <Link to={createPageUrl('AttendanceTracking')}>
+            <Link to={createPageUrl('TeamManagement')}>
               <Button className="bg-cyan-600 hover:bg-cyan-700 gap-2">
+                <Users className="w-4 h-4" />
+                Teams & Tasks
+              </Button>
+            </Link>
+            <Link to={createPageUrl('AttendanceTracking')}>
+              <Button className="bg-blue-600 hover:bg-blue-700 gap-2">
                 <Calendar className="w-4 h-4" />
-                Track Attendance
+                Attendance
               </Button>
             </Link>
             <Link to={createPageUrl('OnboardingManagement')}>
