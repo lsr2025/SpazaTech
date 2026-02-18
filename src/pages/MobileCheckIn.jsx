@@ -127,7 +127,7 @@ export default function MobileCheckIn() {
   const isCheckedIn = todayAttendance?.status === 'checked_in';
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-4 pb-24 lg:pb-4">
       <div className="max-w-md mx-auto">
         {/* Header */}
         <motion.div
@@ -135,8 +135,9 @@ export default function MobileCheckIn() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-6"
         >
-          <h1 className="text-2xl font-bold text-white mb-1">Attendance</h1>
+          <h1 className="text-2xl font-bold text-white mb-1">Daily Check-In</h1>
           <p className="text-slate-400">{format(new Date(), 'EEEE, MMMM dd, yyyy')}</p>
+          {user && <p className="text-cyan-400 text-sm mt-1">👋 {user.full_name}</p>}
         </motion.div>
 
         {/* Status Card */}
