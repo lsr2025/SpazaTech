@@ -493,7 +493,7 @@ export default function NewInspection() {
             <div className="flex items-center gap-2 mt-1">
               <p className="text-slate-400 text-sm">{shop?.shop_name}</p>
               <Badge className={`text-xs ${isOnline ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-400'}`}>
-                {isOnline ? <><Wifi className="w-3 h-3 mr-1" />Online</> : <><WifiOff className="w-3 h-3 mr-1" />Offline</>}
+                {isOnline ? 'Online' : 'Offline'}
               </Badge>
             </div>
           </div>
