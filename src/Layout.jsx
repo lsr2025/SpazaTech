@@ -5,7 +5,7 @@ import { base44 } from '@/api/base44Client';
 import { useQuery } from '@tanstack/react-query';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import SyncManager from '@/components/offline/SyncManager';
+import SyncManager from '@/components/offline/SyncManager.jsx';
 import {
   LayoutDashboard,
   Store,
