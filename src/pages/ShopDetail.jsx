@@ -187,19 +187,32 @@ export default function ShopDetail() {
   const navigate = useNavigate();
   const urlParams = new URLSearchParams(window.location.search);
   const shopId = urlParams.get('id');
+  const { isOnline } = useOfflineStatus();
 
   const { data: shop, isLoading } = useQuery({
     queryKey: ['shop', shopId],
     queryFn: async () => {
-      const shops = await base44.entities.Shop.filter({ id: shopId });
-      return shops[0];
+      try {
+        const shops = await base44.entities.Shop.filter({ id: shopId });
+        const found = shops[0];
+        if (found) await offlineStorage.updateCachedShop(found);
+        return found;
+      } catch {
+        return offlineStorage.getCachedShop(shopId);
+      }
     },
     enabled: !!shopId
   });
 
   const { data: inspections = [] } = useQuery({
     queryKey: ['inspections', shopId],
-    queryFn: () => base44.entities.Inspection.filter({ shop_id: shopId }, '-created_date'),
+    queryFn: async () => {
+      try {
+        return await base44.entities.Inspection.filter({ shop_id: shopId }, '-created_date');
+      } catch {
+        return []; // offline: show empty, they'll load when reconnected
+      }
+    },
     enabled: !!shopId
   });
 
