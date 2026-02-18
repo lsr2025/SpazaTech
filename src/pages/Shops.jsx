@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+import { offlineStorage } from '@/components/offline/OfflineStorage';
+import { useOfflineStatus } from '@/components/offline/useOfflineStatus';
+import OfflineStatusBar from '@/components/offline/OfflineStatusBar';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

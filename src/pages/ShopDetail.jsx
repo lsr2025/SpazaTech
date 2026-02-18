@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
+import { offlineStorage } from '@/components/offline/OfflineStorage';
+import { useOfflineStatus } from '@/components/offline/useOfflineStatus';
+import OfflineStatusBar from '@/components/offline/OfflineStatusBar';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
