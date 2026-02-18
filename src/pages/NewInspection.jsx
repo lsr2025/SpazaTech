@@ -410,27 +410,44 @@ export default function NewInspection() {
 
   const createInspection = useMutation({
     mutationFn: async (data) => {
-      const inspection = await base44.entities.Inspection.create(data);
-      
-      // Update shop compliance status
       const score = calculateScore();
       const complianceStatus = score >= 80 ? 'compliant' : score >= 60 ? 'partially_compliant' : 'non_compliant';
-      const fundingStatus = score >= 80 ? 'eligible' : 'not_eligible';
-      
-      await base44.entities.Shop.update(shopId, {
+      const shopUpdate = {
         compliance_score: score,
         compliance_status: complianceStatus,
-        funding_status: fundingStatus,
+        funding_status: score >= 80 ? 'eligible' : 'not_eligible',
         last_inspection_date: new Date().toISOString(),
         risk_level: score >= 80 ? 'low' : score >= 60 ? 'medium' : score >= 40 ? 'high' : 'critical'
-      });
-      
+      };
+
+      if (!isOnline) {
+        // Save offline with shop update bundled
+        await offlineStorage.saveInspection({ ...data, _shopUpdate: shopUpdate });
+        // Also update the local cache so ShopDetail reflects changes offline
+        const cached = await offlineStorage.getCachedShop(shopId);
+        if (cached) await offlineStorage.updateCachedShop({ ...cached, ...shopUpdate });
+        await refreshPendingCount();
+        setSavedOffline(true);
+        return;
+      }
+
+      const inspection = await base44.entities.Inspection.create(data);
+      await base44.entities.Shop.update(shopId, shopUpdate);
       return inspection;
     },
     onSuccess: () => {
+      if (savedOffline) return; // handled below
       navigate(createPageUrl(`ShopDetail?id=${shopId}`));
     }
   });
+
+  // Navigate away after offline save
+  useEffect(() => {
+    if (savedOffline) {
+      const t = setTimeout(() => navigate(createPageUrl(`ShopDetail?id=${shopId}`)), 1500);
+      return () => clearTimeout(t);
+    }
+  }, [savedOffline]);
 
   const handleSubmit = () => {
     const score = calculateScore();
@@ -441,14 +458,12 @@ export default function NewInspection() {
     if (parseFloat(formData.coldchain_fridge_temp) > 5) riskFlags.push('Fridge temperature above 5°C');
     if (formData.inventory_expired_count > 0) riskFlags.push(`${formData.inventory_expired_count} expired items found`);
 
-    const inspectionData = {
+    createInspection.mutate({
       ...formData,
       total_score: score,
       risk_flags: riskFlags,
       check_out_time: new Date().toISOString()
-    };
-
-    createInspection.mutate(inspectionData);
+    });
   };
 
   const progress = ((currentSection + 1) / sections.length) * 100;
