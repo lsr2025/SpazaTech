@@ -118,27 +118,28 @@ export default function Layout({ children, currentPageName }) {
         <div className="p-6 h-full flex flex-col">
           {/* Navigation */}
           <nav className="flex-1 space-y-2">
-            {navItems.map((item) => {
-              const isActive = currentPageName === item.page;
-              const Icon = item.icon;
-              return (
-                <Link
-                  key={item.page}
-                  to={createPageUrl(item.page)}
-                  onClick={() => setSidebarOpen(false)}
-                >
-                  <div className={`
-                    flex items-center gap-3 px-4 py-3 rounded-2xl transition-all
-                    ${isActive
-                      ? 'bg-gradient-to-r from-[#0ea5e9] to-[#3b82f6] text-white shadow-[6px_6px_12px_#c5c9ce,-3px_-3px_8px_#ffffff]'
-                      : 'text-slate-600 hover:shadow-[inset_4px_4px_8px_#c5c9ce,inset_-4px_-4px_8px_#ffffff]'}
-                  `}>
-                    <Icon className="w-5 h-5" />
-                    <span className="font-medium">{item.name}</span>
-                  </div>
-                </Link>
-              );
-            })}
+            {navItems.filter(item => !item.adminOnly || user?.role === 'admin').map((item) => {
+                  const isActive = currentPageName === item.page;
+                  const Icon = item.icon;
+                  return (
+                    <Link
+                      key={item.page}
+                      to={createPageUrl(item.page)}
+                      onClick={() => setSidebarOpen(false)}
+                    >
+                      <div className={`
+                        flex items-center gap-3 px-4 py-3 rounded-2xl transition-all
+                        ${isActive
+                          ? 'bg-gradient-to-r from-[#0ea5e9] to-[#3b82f6] text-white shadow-[6px_6px_12px_#c5c9ce,-3px_-3px_8px_#ffffff]'
+                          : 'text-slate-600 hover:shadow-[inset_4px_4px_8px_#c5c9ce,inset_-4px_-4px_8px_#ffffff]'}
+                      `}>
+                        <Icon className="w-5 h-5" />
+                        <span className="font-medium">{item.name}</span>
+                        {item.adminOnly && <span className="ml-auto text-[10px] opacity-60 bg-current/10 px-1.5 py-0.5 rounded-full">Admin</span>}
+                      </div>
+                    </Link>
+                  );
+                })}
           </nav>
 
           {/* User Profile */}
