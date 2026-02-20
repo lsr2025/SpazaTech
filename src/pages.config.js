@@ -47,6 +47,7 @@
  *
  * The mainPage value must match a key in the PAGES object exactly.
  */
+import AdminPanel from './pages/AdminPanel';
 import AgentPerformanceReports from './pages/AgentPerformanceReports';
 import AgentProfile from './pages/AgentProfile';
 import Analytics from './pages/Analytics';
@@ -74,11 +75,11 @@ import SuperDashboard from './pages/SuperDashboard';
 import TaskAssignment from './pages/TaskAssignment';
 import TaskMonitoring from './pages/TaskMonitoring';
 import TeamManagement from './pages/TeamManagement';
-import AdminPanel from './pages/AdminPanel';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
+    "AdminPanel": AdminPanel,
     "AgentPerformanceReports": AgentPerformanceReports,
     "AgentProfile": AgentProfile,
     "Analytics": Analytics,
@@ -106,7 +107,6 @@ export const PAGES = {
     "TaskAssignment": TaskAssignment,
     "TaskMonitoring": TaskMonitoring,
     "TeamManagement": TeamManagement,
-    "AdminPanel": AdminPanel,
 }
 
 export const pagesConfig = {

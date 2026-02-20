@@ -11,10 +11,12 @@ import AdminAuditLogs from '@/components/admin/AdminAuditLogs';
 import AdminDataExport from '@/components/admin/AdminDataExport';
 import AdminAnalytics from '@/components/admin/AdminAnalytics';
 import AdminSettings from '@/components/admin/AdminSettings';
+import AdminFundingApplications from '@/components/admin/AdminFundingApplications';
 
 const SECTIONS = [
   { key: 'users',    label: 'User Management',  icon: Users,    role: ['admin'], description: 'Manage user accounts and permissions' },
   { key: 'shops',    label: 'Shop Data',         icon: Store,    role: ['admin', 'user'], description: 'Bulk operations and data management' },
+  { key: 'funding',  label: 'Funding Applications', icon: AlertTriangle, role: ['admin'], description: 'Review and manage NEF funding applications' },
   { key: 'export',   label: 'Data Export',       icon: Download, role: ['admin', 'user'], description: 'Export shops, inspections, attendance' },
   { key: 'audit',    label: 'Audit Logs',        icon: FileText, role: ['admin'], description: 'Full activity and change history' },
   { key: 'analytics',label: 'Analytics',         icon: BarChart3,role: ['admin', 'user'], description: 'System usage and data quality' },
@@ -59,6 +61,7 @@ export default function AdminPanel() {
       case 'shops':    return <AdminShopManagement currentUser={user} />;
       case 'export':   return <AdminDataExport currentUser={user} />;
       case 'audit':    return <AdminAuditLogs currentUser={user} />;
+      case 'funding':  return <AdminFundingApplications currentUser={user} />;
       case 'analytics':return <AdminAnalytics currentUser={user} />;
       case 'settings': return <AdminSettings currentUser={user} />;
       default:         return <AdminUserManagement currentUser={user} />;
