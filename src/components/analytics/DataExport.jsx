@@ -13,10 +13,36 @@ import {
   Filter,
   Building,
   CheckCircle2,
-  Loader2
+  Loader2,
+  ClipboardList
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { format } from 'date-fns';
+
+// ── Minimal Excel (XLSX) generator – no external library needed ──
+function buildXLSX(headers, rows, sheetName = 'Sheet1') {
+  // Simple XML-based Excel (SpreadsheetML) that Excel & Google Sheets open natively
+  const esc = (v) => String(v ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  const cell = (v, idx) => {
+    const col = String.fromCharCode(65 + (idx % 26));
+    const isNum = typeof v === 'number' && !isNaN(v);
+    return isNum
+      ? `<Cell><Data ss:Type="Number">${v}</Data></Cell>`
+      : `<Cell><Data ss:Type="String">${esc(v)}</Data></Cell>`;
+  };
+  const rowXml = (cells) => `<Row>${cells.map((v, i) => cell(v, i)).join('')}</Row>`;
+  const xml = `<?xml version="1.0"?><?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">
+<Styles>
+  <Style ss:ID="header"><Font ss:Bold="1"/><Interior ss:Color="#1e3a5f" ss:Pattern="Solid"/><Font ss:Color="#FFFFFF" ss:Bold="1"/></Style>
+</Styles>
+<Worksheet ss:Name="${esc(sheetName)}"><Table>
+${rowXml(headers.map(h => h))}
+${rows.map(r => rowXml(r)).join('\n')}
+</Table></Worksheet></Workbook>`;
+  return xml;
+}
 
 const ExportFormatCard = ({ format, icon: Icon, description, selected, onClick, badge }) => (
   <motion.div
