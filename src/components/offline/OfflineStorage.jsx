@@ -121,6 +121,27 @@ class OfflineStorage {
     return all.filter(x => !x.synced);
   }
 
+  // ── Pending shop edits (offline edits to existing shops) ─────────────────
+  async saveShopEdit(shopId, data) {
+    if (!this.db) await this.init();
+    return new Promise((resolve, reject) => {
+      const tx = this.db.transaction([STORES.SHOP_EDITS], 'readwrite');
+      const store = tx.objectStore(STORES.SHOP_EDITS);
+      const req = store.put({ shop_id: shopId, data, timestamp: new Date().toISOString(), synced: false });
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    });
+  }
+
+  async getPendingShopEdits() {
+    const all = await this._tx(STORES.SHOP_EDITS, 'readonly', s => s.getAll());
+    return all.filter(x => !x.synced);
+  }
+
+  async deletePendingShopEdit(shopId) {
+    return this._tx(STORES.SHOP_EDITS, 'readwrite', s => s.delete(shopId));
+  }
+
   // ── Pending inspection ────────────────────────────────────────────────────
   async saveInspection(data) {
     if (!this.db) await this.init();
