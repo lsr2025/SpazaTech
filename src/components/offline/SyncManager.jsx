@@ -149,7 +149,8 @@ export default function SyncManager() {
                 {/* Breakdown */}
                 {pending > 0 && !syncing && (
                   <div className="space-y-1 text-xs text-slate-400">
-                    {breakdown.shops > 0 && <p>• {breakdown.shops} shop profile{breakdown.shops > 1 ? 's' : ''}</p>}
+                    {breakdown.shops > 0 && <p>• {breakdown.shops} new shop profile{breakdown.shops > 1 ? 's' : ''}</p>}
+                    {breakdown.shopEdits > 0 && <p>• {breakdown.shopEdits} shop edit{breakdown.shopEdits > 1 ? 's' : ''}</p>}
                     {breakdown.inspections > 0 && <p>• {breakdown.inspections} inspection{breakdown.inspections > 1 ? 's' : ''}</p>}
                     {breakdown.attendance > 0 && <p>• {breakdown.attendance} attendance record{breakdown.attendance > 1 ? 's' : ''}</p>}
                     {!isOnline && <p className="text-amber-400 mt-1">Will upload when online</p>}
