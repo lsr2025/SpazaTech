@@ -200,21 +200,23 @@ class OfflineStorage {
 
   // ── Count all pending items ───────────────────────────────────────────────
   async getAllPendingCount() {
-    const [shops, inspections, attendance] = await Promise.all([
+    const [shops, shopEdits, inspections, attendance] = await Promise.all([
       this.getPendingShops(),
+      this.getPendingShopEdits(),
       this.getPendingInspections(),
       this.getPendingAttendance(),
     ]);
-    return shops.length + inspections.length + attendance.length;
+    return shops.length + shopEdits.length + inspections.length + attendance.length;
   }
 
   async getPendingBreakdown() {
-    const [shops, inspections, attendance] = await Promise.all([
+    const [shops, shopEdits, inspections, attendance] = await Promise.all([
       this.getPendingShops(),
+      this.getPendingShopEdits(),
       this.getPendingInspections(),
       this.getPendingAttendance(),
     ]);
-    return { shops: shops.length, inspections: inspections.length, attendance: attendance.length };
+    return { shops: shops.length, shopEdits: shopEdits.length, inspections: inspections.length, attendance: attendance.length };
   }
 }
 
