@@ -11,6 +11,8 @@ import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { Link } from 'react-router-dom';
+import { useOfflineAgents } from '@/components/offline/useOfflineAgents';
+import OfflineStatusBar from '@/components/offline/OfflineStatusBar';
 import { createPageUrl } from '@/utils';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
