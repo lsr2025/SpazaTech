@@ -24,7 +24,7 @@ window.addEventListener('offline', () => { globalState.isOnline = false; notify(
 export async function refreshPendingCount() {
   const breakdown = await offlineStorage.getPendingBreakdown();
   globalState.breakdown = breakdown;
-  globalState.pending = breakdown.shops + breakdown.inspections + breakdown.attendance;
+  globalState.pending = breakdown.shops + breakdown.shopEdits + breakdown.inspections + breakdown.attendance + breakdown.checkouts;
   notify();
 }
 
