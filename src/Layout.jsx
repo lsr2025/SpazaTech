@@ -110,20 +110,21 @@ export default function Layout({ children, currentPageName }) {
       {/* Mobile Sidebar Overlay */}
       {sidebarOpen && (
         <div
-          className="lg:hidden fixed inset-0 bg-black/20 z-50"
+          className="lg:hidden fixed inset-0 bg-black/40 z-40"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar */}
       <aside className={`
-        fixed top-20 left-6 bottom-6 z-40 w-64
-        bg-[#e8ecf1] rounded-3xl
-        shadow-[12px_12px_24px_#c5c9ce,-12px_-12px_24px_#ffffff]
+        fixed top-0 left-0 bottom-0 z-50 w-72
+        bg-[#e8ecf1]
+        shadow-[12px_0_24px_#c5c9ce]
         transform transition-transform duration-300 ease-in-out
+        lg:top-20 lg:left-6 lg:bottom-6 lg:w-64 lg:rounded-3xl
+        lg:shadow-[12px_12px_24px_#c5c9ce,-12px_-12px_24px_#ffffff]
         lg:translate-x-0
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-        hidden lg:block
       `}>
         <div className="p-6 h-full flex flex-col">
           {/* Navigation */}
