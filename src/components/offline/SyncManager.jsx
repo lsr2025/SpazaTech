@@ -70,13 +70,23 @@ export default function SyncManager() {
         } catch { failed++; }
       }
 
-      // Sync pending attendance
+      // Sync pending attendance (check-ins)
       const pendingAttendance = await offlineStorage.getPendingAttendance();
       for (const att of pendingAttendance) {
         try {
           const { id, timestamp, synced, ...data } = att;
           await base44.entities.Attendance.create(data);
           await offlineStorage.deleteSynced(STORES.ATTENDANCE, id);
+          success++;
+        } catch { failed++; }
+      }
+
+      // Sync pending checkouts (updates to existing attendance records)
+      const pendingCheckouts = await offlineStorage.getPendingCheckouts();
+      for (const co of pendingCheckouts) {
+        try {
+          await base44.entities.Attendance.update(co.attendance_id, co.data);
+          await offlineStorage.deletePendingCheckout(co.attendance_id);
           success++;
         } catch { failed++; }
       }
