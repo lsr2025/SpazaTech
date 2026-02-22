@@ -76,7 +76,10 @@ import SuperDashboard from './pages/SuperDashboard';
 import TaskAssignment from './pages/TaskAssignment';
 import TaskMonitoring from './pages/TaskMonitoring';
 import TeamManagement from './pages/TeamManagement';
+import Participants from './pages/Participants';
+import ParticipantDetail from './pages/ParticipantDetail';
 import ImportParticipants from './pages/ImportParticipants';
+import Workstreams from './pages/Workstreams';
 import __Layout from './Layout.jsx';
 
 
@@ -110,7 +113,10 @@ export const PAGES = {
     "TaskAssignment": TaskAssignment,
     "TaskMonitoring": TaskMonitoring,
     "TeamManagement": TeamManagement,
+    "Participants": Participants,
+    "ParticipantDetail": ParticipantDetail,
     "ImportParticipants": ImportParticipants,
+    "Workstreams": Workstreams,
 }
 
 export const pagesConfig = {
