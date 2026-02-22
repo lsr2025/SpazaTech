@@ -57,6 +57,7 @@ import Dashboard from './pages/Dashboard';
 import Guardrails from './pages/Guardrails';
 import HRDashboard from './pages/HRDashboard';
 import Home from './pages/Home';
+import ImportParticipants from './pages/ImportParticipants';
 import LeaveManagement from './pages/LeaveManagement';
 import MapView from './pages/MapView';
 import MobileCheckIn from './pages/MobileCheckIn';
@@ -69,6 +70,8 @@ import NewInspection from './pages/NewInspection';
 import NewShop from './pages/NewShop';
 import OnboardingChecklist from './pages/OnboardingChecklist';
 import OnboardingManagement from './pages/OnboardingManagement';
+import ParticipantDetail from './pages/ParticipantDetail';
+import Participants from './pages/Participants';
 import ShiftManagement from './pages/ShiftManagement';
 import ShopDetail from './pages/ShopDetail';
 import Shops from './pages/Shops';
@@ -76,9 +79,6 @@ import SuperDashboard from './pages/SuperDashboard';
 import TaskAssignment from './pages/TaskAssignment';
 import TaskMonitoring from './pages/TaskMonitoring';
 import TeamManagement from './pages/TeamManagement';
-import Participants from './pages/Participants';
-import ParticipantDetail from './pages/ParticipantDetail';
-import ImportParticipants from './pages/ImportParticipants';
 import Workstreams from './pages/Workstreams';
 import __Layout from './Layout.jsx';
 
@@ -94,6 +94,7 @@ export const PAGES = {
     "Guardrails": Guardrails,
     "HRDashboard": HRDashboard,
     "Home": Home,
+    "ImportParticipants": ImportParticipants,
     "LeaveManagement": LeaveManagement,
     "MapView": MapView,
     "MobileCheckIn": MobileCheckIn,
@@ -106,6 +107,8 @@ export const PAGES = {
     "NewShop": NewShop,
     "OnboardingChecklist": OnboardingChecklist,
     "OnboardingManagement": OnboardingManagement,
+    "ParticipantDetail": ParticipantDetail,
+    "Participants": Participants,
     "ShiftManagement": ShiftManagement,
     "ShopDetail": ShopDetail,
     "Shops": Shops,
@@ -113,9 +116,6 @@ export const PAGES = {
     "TaskAssignment": TaskAssignment,
     "TaskMonitoring": TaskMonitoring,
     "TeamManagement": TeamManagement,
-    "Participants": Participants,
-    "ParticipantDetail": ParticipantDetail,
-    "ImportParticipants": ImportParticipants,
     "Workstreams": Workstreams,
 }
 
